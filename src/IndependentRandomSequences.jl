@@ -8,11 +8,13 @@ import Distributions: _rand!,_logpdf,
 
 export IIDRandomSequence,INIDRandomSequence
 
-#abstract AbstractINIDRandomSequence
-
-type IIDRandomSequence{T<:ContinuousUnivariateDistribution} <: ContinuousMultivariateDistribution
+type IIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}
   d::T
   length::Int64
+end
+function IIDRandomSequence{T<:UnivariateDistribution}(d::T,length::Int64)
+    S = super(T).parameters[2]
+    return IIDRandomSequence{S,T}(d,length)
 end
 
 length(X::IIDRandomSequence) = X.length
@@ -30,8 +32,12 @@ entropy(X::IIDRandomSequence) = entropy(X.d)*length(X)
 
 
 
-type INIDRandomSequence <: ContinuousMultivariateDistribution
-    distributions::Vector
+type INIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}
+    distributions::Vector{T}
+end
+function INIDRandomSequence{T<:UnivariateDistribution}(distributions::Vector{T})
+    S = super(T).parameters[2]
+    return INIDRandomSequence{S,T}(distributions)
 end
 
 length(X::INIDRandomSequence) = length(X.distributions)
