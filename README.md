@@ -33,8 +33,10 @@ Similar deal for inid random sequence
     IIDRandomSequence{Continuous,Uniform}(
     d: Uniform(a=-1.0, b=1.0)
     length: 3)
->>> rand(Y)  
-    INIDRandomSequence{Discrete,Bernoulli}(distributions=[Bernoulli(p=0.2),Bernoulli(p=0.8)])
+>>> rand(Y,10)  
+    2x10 Array{Int64,2}:
+      1  1  0  0  0  0  1  0  0  0
+      1  1  1  1  1  1  0  1  1  1
 >>> cov(Y)
     2x2 Diagonal{Float64}:
       0.21  0.0
@@ -47,6 +49,6 @@ By itself, this package may allow us to save just a bit of type when sampling fr
 
 ##Installation
 
-This package isn't registered yet, but can be installed by the [``Pkg.clone(url)``  mechanism](http://julia.readthedocs.org/en/latest/manual/packages/#installing-unregistered-packages).
+This package isn't registered yet, but can be installed by the [``Pkg.clone(url)``](http://julia.readthedocs.org/en/latest/manual/packages/#installing-unregistered-packages) mechanism.
 
 [![Build Status](https://travis-ci.org/gajomi/IndependentRandomSequences.jl.svg?branch=master)](https://travis-ci.org/gajomi/IndependentRandomSequences.jl)
