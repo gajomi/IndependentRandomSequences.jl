@@ -20,7 +20,7 @@ Y = IIDRandomSequence(W,N)
 @test mean(Y) == [0., 0.]
 @test var(Y) == [1/3, 1/3]
 
-#INID tests
+#INID tests, homogenous types
 W,X = Uniform(-1,1),Uniform(0,1)
 Y = INIDRandomSequence([W,X])
 
@@ -35,3 +35,13 @@ Y = INIDRandomSequence([W,X])
 
 @test mean(Y) == [0., 1/2]
 @test var(Y) == [1/3, 1/12]
+
+#INID test, hetergeneous types
+W,X = Binomial(3,.5),Bernoulli(.5)
+Y = INIDRandomSequence([W,X])
+
+@test insupport(Y,[3,0]) == true
+@test insupport(Y,[-2,0]) == false
+@test insupport(Y,[0,0,0]) == false
+
+@test cov(Y) == [3/4 0;0 1/4]

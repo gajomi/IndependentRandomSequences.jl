@@ -69,8 +69,8 @@ function _logpdf{T<:Real}(X::INIDRandomSequence, x::AbstractVector{T})
   return sum(arg->logpdf(arg[1],arg[2]),zip(X.distributions,x))
 end
 
-mean(X::INIDRandomSequence) = [mean(d_i) for d_i in X.distributions]
-var(X::INIDRandomSequence) = [var(d_i) for d_i in X.distributions]
+mean(X::INIDRandomSequence) = Float64[mean(d_i) for d_i in X.distributions]
+var(X::INIDRandomSequence) = Float64[var(d_i) for d_i in X.distributions]
 cov(X::INIDRandomSequence) = Diagonal(var(X))
 entropy(X::INIDRandomSequence) = sum(entropy,X.distributions)
 
