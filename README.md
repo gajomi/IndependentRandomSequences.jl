@@ -10,29 +10,29 @@ The distributions are vector valued random variables (``MultivariateDistribution
 
 ## Basic Usage
 
-To create an iid random sequence and compute some quantities of interest
+To create an IID random sequence and compute some quantities of interest:
 
 ```julia
 >>> W,N = Uniform(-1,1),3
 >>> Y = IIDRandomSequence(W,N)
     IIDRandomSequence{Continuous,Uniform}(
-    d: Uniform(a=-1.0, b=1.0)
+    d: Distributions.Uniform(a=-1.0, b=1.0)
     length: 3)
 >>> rand(Y)  
-    IIDRandomSequence{Continuous,Uniform}(
-    d: Uniform(a=-1.0, b=1.0)
-    length: 3)
+  3-element Array{Float64,1}:
+  -0.169206
+  -0.530327
+  0.31493
 >>> entropy(Y)
-    1.0008048470763757
+    2.0794415416798357
 ```
 
-Similar deal for inid random sequence
+The approach is similar for INID random sequences:
 ```julia
 >>> W,X = Bernoulli(.3),Bernoulli(.8)
 >>> Y = INIDRandomSequence([W,X])
-    IIDRandomSequence{Continuous,Uniform}(
-    d: Uniform(a=-1.0, b=1.0)
-    length: 3)
+    INIDRandomSequence{Discrete,Bernoulli}(
+    distributions=[Bernoulli(p=0.3),Bernoulli(p=0.8)])
 >>> rand(Y,10)  
     2x10 Array{Int64,2}:
       1  1  0  0  0  0  1  0  0  0
@@ -41,6 +41,18 @@ Similar deal for inid random sequence
     2x2 Diagonal{Float64}:
       0.21  0.0
       0.0   0.16
+```
+
+However, it should be noted that INID random sequence can be composed of heterogenous types
+```julia
+>>> W,X = Binomial(3,.5),Bernoulli(.5)
+>>> Y = INIDRandomSequence([W,X])
+    INIDRandomSequence{Discrete,Distribution{Univariate,Discrete}}(
+    distributions=Distribution{Univariate,Discrete}[Binomial(n=3, p=0.5),Bernoulli(p=0.5)])
+>>> rand(Y,10)
+    2x10 Array{Int64,2}:
+      2  3  1  2  1  2  2  2  1  1
+      0  1  0  1  1  1  0  1  0  0
 ```
 
 ##Why would anyone need this package?
