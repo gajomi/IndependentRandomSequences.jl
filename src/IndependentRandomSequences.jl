@@ -4,8 +4,9 @@ using Distributions
 
 import Base: length
 import Distributions: _rand!,_logpdf,
+                      insupport,
                       mean,var,cov,entropy,
-                      insupport
+                      mgf,cf
 
 export IIDRandomSequence,INIDRandomSequence
 
@@ -34,6 +35,13 @@ mean(X::IIDRandomSequence) = mean(X.d)*ones(length(X))
 var(X::IIDRandomSequence) = var(X.d)*ones(length(X))
 cov(X::IIDRandomSequence) = Diagonal(var(X))
 entropy(X::IIDRandomSequence) = entropy(X.d)*length(X)
+
+function mgf(X::IIDRandomSequence, t::AbstractVector)
+  prod([mgf(X.d,t_i) for t_i in t])
+end
+function cf(X::IIDRandomSequence, t::AbstractVector)
+  prod([cf(X.d,t_i) for t_i in t])
+end
 
 
 type INIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}
@@ -66,5 +74,11 @@ var(X::INIDRandomSequence) = [var(d_i) for d_i in X.distributions]
 cov(X::INIDRandomSequence) = Diagonal(var(X))
 entropy(X::INIDRandomSequence) = sum(entropy,X.distributions)
 
+function mgf(X::IIDRandomSequence, t::AbstractVector)
+  prod([mgf(d_i,t_i) for (d_i,t_i) in zip(X.distributions,t)])
+end
+function cf(X::IIDRandomSequence, t::AbstractVector)
+  prod([cf(d_i,t_i) for (d_i,t_i) in zip(X.distributions,t)])
+end
 
 end # module
