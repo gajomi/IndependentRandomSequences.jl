@@ -8,6 +8,11 @@ W = Uniform(-1,1)
 N = 2
 Y = IIDRandomSequence(W,N)
 
+@test insupport(Y,[0,0]) == true
+@test insupport(Y,[-1,1]) == true
+@test insupport(Y,[-2,0]) == false
+@test insupport(Y,[0,0,0]) == false
+
 @test pdf(Y,[0., 0.]) == 1/4
 @test pdf(Y,[2., 0.]) == 0.
 @test pdf(Y,[0. 0. ; 2. 0.]') == [1/4, 0.]
@@ -18,6 +23,11 @@ Y = IIDRandomSequence(W,N)
 #INID tests
 W,X = Uniform(-1,1),Uniform(0,1)
 Y = INIDRandomSequence([W,X])
+
+@test insupport(Y,[0,0]) == true
+@test insupport(Y,[-1,1/2]) == true
+@test insupport(Y,[-2,0]) == false
+@test insupport(Y,[0,0,0]) == false
 
 @test pdf(Y,[0., 1/2]) == 1/2
 @test pdf(Y,[2., 1/2]) == 0.

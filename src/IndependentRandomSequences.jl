@@ -4,7 +4,8 @@ using Distributions
 
 import Base: length
 import Distributions: _rand!,_logpdf,
-                      mean,var,cov,entropy
+                      mean,var,cov,entropy,
+                      insupport
 
 export IIDRandomSequence,INIDRandomSequence
 
@@ -19,6 +20,10 @@ end
 
 length(X::IIDRandomSequence) = X.length
 
+function insupport(X::IIDRandomSequence,x::AbstractVector)
+  length(x)==length(X) && all(insupport(X.d,x))
+end
+
 _rand!{T<:Real}(X::IIDRandomSequence, x::AbstractVector{T}) = rand!(X.d,x)
 
 function _logpdf{T<:Real}(X::IIDRandomSequence, x::AbstractVector{T})
@@ -31,7 +36,6 @@ cov(X::IIDRandomSequence) = Diagonal(var(X))
 entropy(X::IIDRandomSequence) = entropy(X.d)*length(X)
 
 
-
 type INIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}
     distributions::Vector{T}
 end
@@ -41,6 +45,10 @@ function INIDRandomSequence{T<:UnivariateDistribution}(distributions::Vector{T})
 end
 
 length(X::INIDRandomSequence) = length(X.distributions)
+
+function insupport(X::INIDRandomSequence,x::AbstractVector)
+  length(x)==length(X) && all(dx->insupport(dx[1],dx[2]),zip(X.distributions,x))
+end
 
 function _rand!{T<:Real}(X::INIDRandomSequence, x::AbstractVector{T})
   for (i,d_i) in enumerate(X.distributions)
