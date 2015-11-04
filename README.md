@@ -1,5 +1,7 @@
 # IndependentRandomSequences
 
+[![Build Status](https://travis-ci.org/gajomi/IndependentRandomSequences.jl.svg?branch=master)](https://travis-ci.org/gajomi/IndependentRandomSequences.jl)
+
 This package implements distribution types (in the vein of the [Distributions](https://github.com/JuliaStats/Distributions.jl) package) for independent random sequences.  These sequences can have elements which are identically distributed (IID) or with elements with non necessarily identically distributed (INID) elements.
 
 ##Types
@@ -57,7 +59,7 @@ However, it should be noted that INID random sequence can be composed of heterog
 
 ##Why would anyone need this package?
 
-By itself, this package may allow us to save just a bit of type when sampling from and computing quantities of interest for independent random sequences. More importantly, however, it provides a specification of IID/INID types to be used in other packages, which may implement non-trivial functionality. Actual and possible examples include:
+By itself, this package allows one to save just a bit of typing when sampling from and computing quantities of interest for independent random sequences. More importantly, however, it provides a specification of IID/INID types to be used in other packages, which may implement non-trivial functionality. Actual and possible examples include:
 - [order statistics of independent random variables (OrderStatistics.jl)](https://github.com/gajomi/OrderStatistics.jl)
 - Basic arithmetic for independent random variables (coming soon)
 - As containers for affine transformed INID sequence in the sense of [independent component analysis](https://en.wikipedia.org/wiki/Independent_component_analysis)
@@ -65,5 +67,3 @@ By itself, this package may allow us to save just a bit of type when sampling fr
 ##Installation
 
 This package isn't registered yet, but can be installed by the [``Pkg.clone(url)``](http://julia.readthedocs.org/en/latest/manual/packages/#installing-unregistered-packages) mechanism.
-
-[![Build Status](https://travis-ci.org/gajomi/IndependentRandomSequences.jl.svg?branch=master)](https://travis-ci.org/gajomi/IndependentRandomSequences.jl)
