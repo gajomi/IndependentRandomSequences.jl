@@ -3,7 +3,7 @@ type INIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: Multivaria
     distributions::Vector{T}
 end
 function INIDRandomSequence{T<:UnivariateDistribution}(distributions::Vector{T})
-    S = super(T).parameters[2]
+    S = supertype(T).parameters[2]
     return INIDRandomSequence{S,T}(distributions)
 end
 

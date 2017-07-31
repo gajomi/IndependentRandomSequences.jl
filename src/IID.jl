@@ -3,7 +3,7 @@ type IIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: Multivariat
   length::Int64
 end
 function IIDRandomSequence{T<:UnivariateDistribution}(d::T,length::Int64)
-    S = super(T).parameters[2]
+    S = supertype(T).parameters[2]
     return IIDRandomSequence{S,T}(d,length)
 end
 
