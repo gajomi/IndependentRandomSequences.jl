@@ -29,9 +29,9 @@ var(X::INIDRandomSequence) = Float64[var(d_i) for d_i in X.distributions]
 cov(X::INIDRandomSequence) = Diagonal(var(X))
 entropy(X::INIDRandomSequence) = sum(entropy,X.distributions)
 
-function mgf(X::IIDRandomSequence, t::AbstractVector)
+function mgf(X::INIDRandomSequence, t::AbstractVector)
   prod([mgf(d_i,t_i) for (d_i,t_i) in zip(X.distributions,t)])
 end
-function cf(X::IIDRandomSequence, t::AbstractVector)
+function cf(X::INIDRandomSequence, t::AbstractVector)
   prod([cf(d_i,t_i) for (d_i,t_i) in zip(X.distributions,t)])
 end
