@@ -4,11 +4,8 @@
 
 This package implements distribution types (in the vein of the [Distributions](https://github.com/JuliaStats/Distributions.jl) package) for independent random sequences.  These sequences can have elements which are identically distributed (IID) or with elements with non necessarily identically distributed (INID) elements.
 
-##Types
-The distributions are vector valued random variables (``MultivariateDistribution`` in the parlance of ``Distributions``). Currently the functionality is limited to sequences of univariate random variables.
-
-* ``IIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}``
-* ``INIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}``
+## Types
+The distributions types (``IIDRandomSequence`` and ``INIDRandomSequence``)are vector valued random variables (``MultivariateDistribution`` in the parlance of ``Distributions``). 
 
 ## Basic Usage
 
@@ -63,7 +60,7 @@ julia> rand(Y,10)
   1  0  0  0  0  1  0  0  0  1
 ```
 
-##Why would anyone need this package?
+## Why would anyone need this package?
 
 By itself, this package allows one to save just a bit of typing when sampling from and computing quantities of interest for independent random sequences. More importantly, however, it provides a specification of IID/INID types to be used in other packages, which may implement non-trivial functionality. Actual and possible examples include:
 - [order statistics of independent random variables (OrderStatistics.jl)](https://github.com/gajomi/OrderStatistics.jl)
