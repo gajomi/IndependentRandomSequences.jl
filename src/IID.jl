@@ -1,4 +1,4 @@
-type IIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: MultivariateDistribution{S}
+type IIDRandomSequence{S<:ValueSupport,T<:UnivariateDistribution} <: AbstractIDSequence{S}
   d::T
   length::Int64
 end
@@ -8,6 +8,8 @@ function IIDRandomSequence{T<:UnivariateDistribution}(d::T,length::Int64)
 end
 
 length(X::IIDRandomSequence) = X.length
+distributions(X::IIDRandomSequence) = fill(X.d,length(X))
+
 
 function insupport(X::IIDRandomSequence,x::AbstractVector)
   length(x)==length(X) && all(insupport(X.d,x))

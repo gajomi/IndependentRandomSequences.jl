@@ -8,9 +8,10 @@ import Distributions: _rand!,_logpdf,
                       mean,var,cov,entropy,
                       mgf,cf
 
-export IIDRandomSequence,INIDRandomSequence
+export IIDRandomSequence,INIDRandomSequence,AbstractIDSequence,distributions
 
+include("abstract.jl")
 include("IID.jl")
 include("INID.jl")
 
-end # module
+end
